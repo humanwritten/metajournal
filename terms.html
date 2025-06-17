@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMS OF SERVICE | METAJOURNAL</title>
+    <meta name="description" content="METAJOURNAL Terms of Service - Learn about your rights and responsibilities when using our private media journal app with on-device processing.">
+    <meta name="keywords" content="terms of service, user agreement, metajournal terms, app terms, privacy-first app">
+    <meta name="author" content="METAJOURNAL">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://humanwritten.github.io/metajournal/terms.html">
+    <meta property="og:title" content="TERMS OF SERVICE | METAJOURNAL">
+    <meta property="og:description" content="Terms of Service for METAJOURNAL - Private media journal app with on-device processing.">
+    <meta property="og:image" content="https://humanwritten.github.io/metajournal/favicon-mj-glitch.svg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:url" content="https://humanwritten.github.io/metajournal/terms.html">
+    <meta property="twitter:title" content="TERMS OF SERVICE | METAJOURNAL">
+    <meta property="twitter:description" content="Terms of Service for METAJOURNAL - Private media journal app.">
+    <meta property="twitter:image" content="https://humanwritten.github.io/metajournal/favicon-mj-glitch.svg">
+    
+    <link rel="icon" type="image/svg+xml" href="favicon-mj-glitch.svg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #000;
+            color: #fff;
+            line-height: 1.4;
+        }
+        
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: all 0.1s ease;
+        }
+        
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: 1;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150"><defs><filter id="noise"><feTurbulence baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.4"/></svg>');
+            animation: grain 1s infinite;
+        }
+        
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-1px, -1px); }
+            20% { transform: translate(1px, -1px); }
+            30% { transform: translate(-1px, 1px); }
+            40% { transform: translate(1px, 1px); }
+            50% { transform: translate(-1px, -1px); }
+            60% { transform: translate(1px, -1px); }
+            70% { transform: translate(-1px, 1px); }
+            80% { transform: translate(1px, 1px); }
+            90% { transform: translate(-1px, -1px); }
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            padding: 60px 0 40px;
+            text-align: center;
+            border-bottom: 2px solid #333;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: #fff;
+        }
+        
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: transparent;
+            border: 2px solid #333;
+            color: #fff;
+            padding: 10px 20px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            z-index: 1000;
+        }
+        
+        .back-btn:hover {
+            border-color: #fff;
+            background: #fff;
+            color: #000;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        h1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -20px;
+            width: 10px;
+            height: 100%;
+            background: #fff;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 4rem 0 1.5rem 0;
+            padding: 20px 0;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+        
+        h2::before {
+            content: '■';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background: #111;
+            border: 2px solid #333;
+            padding: 30px;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight::before {
+            content: 'IMPORTANT';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #000;
+            color: #fff;
+            padding: 0 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .highlight p {
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            opacity: 1;
+            font-size: 1rem;
+        }
+        
+        ul {
+            margin: 2rem 0 2rem 2rem;
+            opacity: 0.8;
+        }
+        
+        li {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            position: relative;
+        }
+        
+        li::before {
+            content: '→';
+            position: absolute;
+            left: -20px;
+            opacity: 0.5;
+        }
+        
+        .section-divider {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #333, transparent);
+            margin: 4rem 0;
+        }
+        
+        .last-updated {
+            background: #111;
+            border: 1px solid #333;
+            padding: 20px;
+            margin-bottom: 3rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+        }
+        
+        .warning-box {
+            background: #111;
+            border: 2px solid #444;
+            border-left: 4px solid #fff;
+            padding: 30px;
+            margin: 3rem 0;
+            position: relative;
+        }
+        
+        .warning-box::before {
+            content: '!';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #000;
+            color: #fff;
+            padding: 0 8px;
+            font-size: 1rem;
+            font-weight: 800;
+        }
+        
+        .contact-info {
+            background: #111;
+            border: 2px solid #333;
+            padding: 30px;
+            margin: 4rem 0;
+            text-align: center;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-info a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 1px solid #333;
+            transition: border-color 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            border-color: #fff;
+        }
+        
+        .number-section {
+            counter-increment: section;
+            position: relative;
+        }
+        
+        .number-section::before {
+            content: counter(section, decimal-leading-zero);
+            position: absolute;
+            left: -60px;
+            top: 20px;
+            font-size: 3rem;
+            font-weight: 800;
+            opacity: 0.1;
+        }
+        
+        .content {
+            counter-reset: section;
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid #333;
+            position: relative;
+            z-index: 100;
+            background: #000;
+            margin-top: 4rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 1000;
+            cursor: pointer;
+            padding: 10px;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: #fff;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .back-btn {
+                position: static;
+                margin-bottom: 2rem;
+            }
+            
+            header {
+                text-align: left;
+            }
+            
+            .number-section::before {
+                display: none;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="noise"></div>
+    
+    <div class="container">
+        <header>
+            <a href="index.html" class="back-btn" aria-label="Back to home page">← BACK</a>
+            <div class="logo">METAJOURNAL</div>
+            <div class="tagline">PRIVATE MEDIA JOURNAL</div>
+        </header>
+
+        <div class="content">
+            <h1 class="animate-on-scroll">TERMS</h1>
+            
+            <div class="last-updated animate-on-scroll">
+                LAST UPDATED: JUNE 15, 2025
+            </div>
+
+            <div class="highlight animate-on-scroll">
+                <p>THESE TERMS GOVERN YOUR USE OF THE METAJOURNAL APP. BY DOWNLOADING AND USING THE APP, YOU AGREE TO THESE TERMS.</p>
+            </div>
+
+            <section class="number-section animate-on-scroll">
+                <h2>ACCEPTANCE OF TERMS</h2>
+                <p>BY DOWNLOADING, INSTALLING, OR USING METAJOURNAL, YOU AGREE TO BE BOUND BY THESE TERMS OF SERVICE. IF YOU DO NOT AGREE, PLEASE DO NOT USE THE APP.</p>
+            </section>
+
+            <section class="number-section animate-on-scroll">
+                <h2>DESCRIPTION OF SERVICE</h2>
+                <p>METAJOURNAL IS A MOBILE APPLICATION THAT:</p>
+                <ul>
+                    <li>MONITORS A USER-SELECTED PHOTOS ALBUM FOR NEW MEDIA</li>
+                    <li>EXTRACTS AUDIO FROM VIDEOS AND TRANSCRIBES THEM ON-DEVICE</li>
+                    <li>CREATES A SEARCHABLE TIMELINE OF PROCESSED MEDIA</li>
+                    <li>STORES ALL DATA LOCALLY ON THE USER'S DEVICE</li>
+                </ul>
+            </section>
+
+            <section class="number-section animate-on-scroll">
+                <h2>USER RESPONSIBILITIES</h2>
+                <div class="warning-box">
+                    <p><strong>CONTENT OWNERSHIP:</strong> YOU RETAIN FULL OWNERSHIP OF ALL CONTENT PROCESSED BY THE APP. YOU ARE RESPONSIBLE FOR ENSURING YOU HAVE THE RIGHT TO PROCESS ANY MEDIA.</p>
+                </div>
+                <ul>
+                    <li>COMPLY WITH ALL APPLICABLE LAWS</li>
+                    <li>ENSURE DEVICE REQUIREMENTS ARE MET (iOS 18+)</li>
+                    <li>MAINTAIN SUFFICIENT STORAGE FOR PROCESSING</li>
+                    <li>GRANT NECESSARY PERMISSIONS FOR APP FUNCTION</li>
+                </ul>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <section class="number-section animate-on-scroll">
+                <h2>PRIVACY AND DATA PROCESSING</h2>
+                <p><strong>LOCAL PROCESSING:</strong></p>
+                <ul>
+                    <li>ALL MEDIA PROCESSING OCCURS ON YOUR DEVICE</li>
+                    <li>NO CONTENT TRANSMITTED TO EXTERNAL SERVERS BEYOND APPLE'S NATIVE SERVICES</li>
+                    <li>TRANSCRIPTS AND DATA REMAIN LOCAL</li>
+                    <li>YOU ARE RESPONSIBLE FOR DEVICE SECURITY</li>
+                </ul>
+            </section>
+
+            <section class="number-section animate-on-scroll">
+                <h2>ACCEPTABLE USE</h2>
+                <p>YOU AGREE TO USE THE APP LAWFULLY. YOU AGREE NOT TO:</p>
+                <ul>
+                    <li>PROCESS CONTENT THAT VIOLATES LAWS</li>
+                    <li>REVERSE ENGINEER OR MODIFY THE APP</li>
+                    <li>DAMAGE OR IMPAIR APP FUNCTIONALITY</li>
+                    <li>INFRINGE ON OTHERS' INTELLECTUAL PROPERTY</li>
+                </ul>
+            </section>
+
+            <section class="number-section animate-on-scroll">
+                <h2>INTELLECTUAL PROPERTY</h2>
+                <p><strong>APP OWNERSHIP:</strong> THE APP IS OWNED BY METAJOURNAL. YOU RECEIVE LIMITED LICENSE FOR PERSONAL USE.</p>
+                <p><strong>USER CONTENT:</strong> YOU RETAIN ALL RIGHTS TO YOUR ORIGINAL CONTENT. THE APP CLAIMS NO OWNERSHIP OVER YOUR MEDIA OR TRANSCRIPTS.</p>
+            </section>
+
+            <section class="number-section animate-on-scroll">
+                <h2>DISCLAIMERS AND LIMITATIONS</h2>
+                <div class="warning-box">
+                    <p>THE APP IS PROVIDED "AS IS" WITHOUT WARRANTIES. WE DO NOT GUARANTEE UNINTERRUPTED ACCESS OR ERROR-FREE OPERATION.</p>
+                </div>
+                <ul>
+                    <li>TRANSCRIPTION ACCURACY DEPENDS ON AUDIO QUALITY</li>
+                    <li>NOT LIABLE FOR DATA LOSS OR DEVICE DAMAGE</li>
+                    <li>USERS RESPONSIBLE FOR DATA BACKUPS</li>
+                    <li>LIABILITY LIMITED TO AMOUNT PAID FOR APP</li>
+                </ul>
+            </section>
+
+            <section class="number-section animate-on-scroll">
+                <h2>DEVICE RESOURCES</h2>
+                <p>VIDEO PROCESSING REQUIRES SIGNIFICANT DEVICE RESOURCES:</p>
+                <ul>
+                    <li>BATTERY USAGE MAY INCREASE DURING PROCESSING</li>
+                    <li>STORAGE SPACE REQUIRED FOR AUDIO AND TRANSCRIPTS</li>
+                    <li>PROCESSING SPEED DEPENDS ON DEVICE CAPABILITIES</li>
+                    <li>MEDIA COMPLEXITY AFFECTS PERFORMANCE</li>
+                </ul>
+            </section>
+
+            <section class="number-section animate-on-scroll">
+                <h2>UPDATES AND MODIFICATIONS</h2>
+                <p><strong>APP UPDATES:</strong> WE MAY RELEASE UPDATES TO IMPROVE FUNCTIONALITY. SOME UPDATES MAY REQUIRE ACCEPTANCE OF REVISED TERMS.</p>
+                <p><strong>TERMS CHANGES:</strong> WE RESERVE THE RIGHT TO MODIFY THESE TERMS. MATERIAL CHANGES WILL BE COMMUNICATED THROUGH THE APP.</p>
+            </section>
+
+            <section class="number-section animate-on-scroll">
+                <h2>TERMINATION</h2>
+                <p><strong>USER TERMINATION:</strong> YOU MAY STOP USING THE APP BY DELETING IT AND ANY ASSOCIATED ICLOUD DATA. THIS REMOVES ALL ASSOCIATED DATA.</p>
+                <p><strong>SERVICE TERMINATION:</strong> WE MAY DISCONTINUE THE APP WITH NOTICE. CORE FUNCTIONALITY CONTINUES OFFLINE.</p>
+            </section>
+
+            <section class="number-section animate-on-scroll">
+                <h2>TECHNICAL SUPPORT</h2>
+                <ul>
+                    <li>SUPPORT PROVIDED ON BEST-EFFORT BASIS</li>
+                    <li>CONTACT SUPPORT FOR TECHNICAL ISSUES</li>
+                </ul>
+            </section>
+
+            <section class="number-section animate-on-scroll">
+                <h2>GOVERNING LAW</h2>
+                <p>THESE TERMS ARE GOVERNED BY THE LAWS OF THE JURISDICTION WHERE METAJOURNAL IS REGISTERED, WITHOUT REGARD TO CONFLICT OF LAW PRINCIPLES.</p>
+            </section>
+
+            <section class="number-section animate-on-scroll">
+                <h2>SEVERABILITY</h2>
+                <p>IF ANY PROVISION IS FOUND UNENFORCEABLE, THE REMAINING PROVISIONS CONTINUE IN FULL FORCE AND EFFECT.</p>
+            </section>
+
+            <div class="contact-info animate-on-scroll">
+                <h3>QUESTIONS?</h3>
+                <p>LEGAL: <a href="mailto:legal@metajournal.sh">LEGAL@METAJOURNAL.SH</a></p>
+                <p>SUPPORT: <a href="mailto:support@metajournal.sh">SUPPORT@METAJOURNAL.SH</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="animate-on-scroll">
+        <div class="container">
+            <div class="footer-links">
+                <a href="privacy.html">PRIVACY</a>
+                <a href="terms.html">TERMS</a>
+                <a href="support.html">SUPPORT</a>
+            </div>
+            <p style="font-size: 0.8rem; opacity: 0.3; text-transform: uppercase;">
+                © 2025 METAJOURNAL
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let cursorX = mouseX, cursorY = mouseY;
+
+        // Initialize cursor position
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(updateCursor);
+        }
+        updateCursor();
+
+        // Animate on scroll
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>

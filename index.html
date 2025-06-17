@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>METAJOURNAL - PRIVATE MEDIA JOURNAL</title>
+    <meta name="description" content="Transform your photos and videos into a searchable timeline. METAJOURNAL automatically transcribes videos and organizes media with on-device processing. Coming to iOS 2025.">
+    <meta name="keywords" content="private journal, media transcription, iOS app, on-device processing, photo timeline, video transcription, searchable media, privacy-first">
+    <meta name="author" content="METAJOURNAL">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://humanwritten.github.io/metajournal/">
+    <meta property="og:title" content="METAJOURNAL - PRIVATE MEDIA JOURNAL">
+    <meta property="og:description" content="Transform your photos and videos into a searchable timeline with on-device transcription. Coming to iOS 2025.">
+    <meta property="og:image" content="https://humanwritten.github.io/metajournal/favicon-mj-glitch.svg">
+    <meta property="og:site_name" content="METAJOURNAL">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://humanwritten.github.io/metajournal/">
+    <meta property="twitter:title" content="METAJOURNAL - PRIVATE MEDIA JOURNAL">
+    <meta property="twitter:description" content="Transform your photos and videos into a searchable timeline with on-device transcription. Coming to iOS 2025.">
+    <meta property="twitter:image" content="https://humanwritten.github.io/metajournal/favicon-mj-glitch.svg">
+    
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="METAJOURNAL">
+    
+    <link rel="icon" type="image/svg+xml" href="favicon-mj-glitch.svg">
+    <link rel="apple-touch-icon" href="favicon-mj-glitch.svg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.2;
+        }
+        
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            mix-blend-mode: difference;
+            transition: all 0.1s ease;
+        }
+        
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            z-index: 1;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.4"/></svg>');
+            animation: grain 0.5s infinite;
+        }
+        
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-1px, -1px); }
+            20% { transform: translate(1px, -1px); }
+            30% { transform: translate(-1px, 1px); }
+            40% { transform: translate(1px, 1px); }
+            50% { transform: translate(-1px, -1px); }
+            60% { transform: translate(1px, -1px); }
+            70% { transform: translate(-1px, 1px); }
+            80% { transform: translate(1px, 1px); }
+            90% { transform: translate(-1px, -1px); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo {
+            font-size: clamp(3rem, 8vw, 12rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            text-align: center;
+            position: relative;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+        
+        .logo::before {
+            content: 'METAJOURNAL';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            color: #000;
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 0.5s ease;
+        }
+        
+        .logo:hover::before {
+            clip-path: inset(0 0 0 0);
+        }
+        
+        .tagline {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0.7;
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            width: 2px;
+            height: 200px;
+            background: #333;
+            z-index: 1000;
+        }
+        
+        .scroll-progress {
+            width: 100%;
+            background: #fff;
+            height: 0%;
+            transition: height 0.1s ease;
+        }
+        
+        .section-nav {
+            position: fixed;
+            top: 50%;
+            right: 40px;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border: 2px solid #333;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            background: transparent;
+            padding: 0;
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        .nav-dot.active {
+            background: #fff;
+            border-color: #fff;
+        }
+        
+        .nav-dot:hover {
+            transform: scale(1.2);
+            border-color: #fff;
+        }
+        
+        .nav-dot::after {
+            content: attr(data-section);
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            white-space: nowrap;
+            background: #000;
+            padding: 5px 10px;
+            border: 1px solid #333;
+        }
+        
+        .nav-dot:hover::after {
+            opacity: 1;
+        }
+        
+        section {
+            min-height: 100vh;
+            padding: 100px 0;
+            position: relative;
+            border-bottom: 1px solid #333;
+        }
+        
+        .section-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 8rem;
+            font-weight: 800;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        h2 {
+            font-size: clamp(2rem, 5vw, 6rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            animation: glitch-1 0.5s infinite;
+            color: #ff0000;
+            z-index: -1;
+        }
+        
+        .glitch::after {
+            animation: glitch-2 0.5s infinite;
+            color: #00ff00;
+            z-index: -2;
+        }
+        
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+        
+        @keyframes glitch-1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(2px, -2px); }
+            40% { transform: translate(-2px, 2px); }
+            60% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 2px); }
+        }
+        
+        @keyframes glitch-2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, -2px); }
+            40% { transform: translate(2px, 2px); }
+            60% { transform: translate(2px, -2px); }
+            80% { transform: translate(-2px, 2px); }
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 2px;
+            margin: 4rem 0;
+        }
+        
+        .feature:nth-child(4) {
+            grid-column: 2;
+            grid-row: 2;
+        }
+        
+        .feature {
+            background: #111;
+            padding: 40px;
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .feature:hover::before {
+            left: 100%;
+        }
+        
+        .feature:hover {
+            background: #222;
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+        
+        .feature h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+        
+        .feature p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 150px 0;
+            position: relative;
+            background: #111;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 2px,
+                rgba(255,255,255,0.02) 2px,
+                rgba(255,255,255,0.02) 4px
+            );
+        }
+        
+        .email-form {
+            max-width: 500px;
+            margin: 3rem auto 0;
+            position: relative;
+        }
+        
+        .email-input {
+            width: 100%;
+            background: transparent;
+            border: 2px solid #333;
+            color: #fff;
+            padding: 20px;
+            font-family: inherit;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+        
+        .email-input:focus {
+            outline: none;
+            border-color: #fff;
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 20px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            margin-top: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            transition: left 0.3s ease;
+        }
+        
+        .submit-btn:hover::before {
+            left: 0;
+        }
+        
+        .submit-btn:hover {
+            color: #fff;
+        }
+        
+        .submit-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid #333;
+            position: relative;
+            z-index: 100;
+            background: #000;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 1000;
+            cursor: pointer;
+            padding: 10px;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: #fff;
+        }
+        
+        
+        .title-reveal {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .title-reveal h2 {
+            transform: translateY(120%) skewY(7deg);
+            transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+            transform-origin: bottom;
+        }
+        
+        .title-reveal.visible h2 {
+            transform: translateY(0) skewY(0deg);
+        }
+        
+        .title-reveal::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            transform: translateX(-100%);
+            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .title-reveal.visible::after {
+            transform: translateX(100%);
+        }
+        
+        .slide-up {
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .slide-up.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .stagger-features > * {
+            opacity: 0;
+            transform: translateY(80px) rotateX(15deg);
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .stagger-features.visible > * {
+            opacity: 1;
+            transform: translateY(0) rotateX(0deg);
+        }
+        
+        .stagger-features.visible > *:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-features.visible > *:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-features.visible > *:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-features.visible > *:nth-child(4) { transition-delay: 0.4s; }
+        
+        .section-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 8rem;
+            font-weight: 800;
+            opacity: 0;
+            z-index: 1;
+            transform: scale(1.2) rotate(10deg);
+            transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .section-number.visible {
+            opacity: 0.1;
+            transform: scale(1) rotate(0deg);
+        }
+        
+        .email-form {
+            max-width: 500px;
+            margin: 3rem auto 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .email-form.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+            
+            .feature:nth-child(4) {
+                grid-column: 1;
+                grid-row: auto;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .section-number {
+                font-size: 4rem;
+            }
+            
+            .section-nav {
+                display: none;
+            }
+            
+            .scroll-indicator {
+                display: none;
+            }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="noise"></div>
+    
+    <!-- Navigation -->
+    <nav class="section-nav" aria-label="Page navigation">
+        <button class="nav-dot" data-section="HOME" data-target="header" aria-label="Navigate to home section">
+            <span class="sr-only">HOME</span>
+        </button>
+        <button class="nav-dot" data-section="CONCEPT" data-target="concept" aria-label="Navigate to concept section">
+            <span class="sr-only">CONCEPT</span>
+        </button>
+        <button class="nav-dot" data-section="FEATURES" data-target="features" aria-label="Navigate to features section">
+            <span class="sr-only">FEATURES</span>
+        </button>
+        <button class="nav-dot" data-section="ACCESS" data-target="access" aria-label="Navigate to access section">
+            <span class="sr-only">ACCESS</span>
+        </button>
+    </nav>
+    
+    <div class="scroll-indicator">
+        <div class="scroll-progress"></div>
+    </div>
+
+    <header id="header">
+        <div class="logo glitch" data-text="METAJOURNAL">METAJOURNAL</div>
+        <div class="tagline">PRIVATE MEDIA JOURNAL</div>
+    </header>
+
+    <section id="concept">
+        <div class="section-number">01</div>
+        <div class="container">
+            <div class="title-reveal">
+                <h2>CONCEPT</h2>
+            </div>
+            <div class="slide-up">
+                <p style="font-size: 1.2rem; opacity: 0.8; max-width: 800px;">
+                    TRANSFORM YOUR PHOTOS AND VIDEOS INTO A SEARCHABLE TIMELINE. 
+                    EVERY MOMENT BECOMES DISCOVERABLE THROUGH INTELLIGENT ON-DEVICE PROCESSING.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="section-number">02</div>
+        <div class="container">
+            <div class="title-reveal">
+                <h2>FEATURES</h2>
+            </div>
+            <div class="feature-grid stagger-features">
+                <div class="feature">
+                    <div class="feature-icon">→</div>
+                    <h3>AUTO PROCESS</h3>
+                    <p>Select an album. We monitor and process new media automatically as you add it.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">▢</div>
+                    <h3>TRANSCRIBE</h3>
+                    <p>Videos are transcribed using Apple's on-device speech recognition. No internet required.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">◯</div>
+                    <h3>SEARCH</h3>
+                    <p>Find any moment by searching through transcribed content. Your memories become discoverable.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">■</div>
+                    <h3>PRIVATE</h3>
+                    <p>All processing happens on your device. Media and transcripts never leave your phone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="access" class="cta-section">
+        <div class="section-number">03</div>
+        <div class="container">
+            <div class="title-reveal">
+                <h2>ACCESS</h2>
+            </div>
+            <div class="fade-in-left">
+                <p style="font-size: 1.1rem; opacity: 0.7; margin-bottom: 1rem;">
+                    GET NOTIFIED WHEN METAJOURNAL LAUNCHES
+                </p>
+            </div>
+            <form class="email-form" action="https://formspree.io/f/mpwrrdrz" method="POST">
+                <input type="email" name="email" class="email-input" placeholder="YOUR EMAIL" required aria-label="Email address for launch notifications">
+                <button type="submit" class="submit-btn" aria-label="Subscribe to launch notifications">
+                    <span>NOTIFY ME</span>
+                </button>
+            </form>
+            <div class="fade-in-right">
+                <p style="font-size: 0.8rem; opacity: 0.5; margin-top: 2rem; text-transform: uppercase;">
+                    iOS 2025 • NO SPAM • JUST UPDATES
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="animate-on-scroll">
+        <div class="container">
+            <div class="footer-links">
+                <a href="privacy.html">PRIVACY</a>
+                <a href="terms.html">TERMS</a>
+                <a href="support.html">SUPPORT</a>
+            </div>
+            <p style="font-size: 0.8rem; opacity: 0.3; text-transform: uppercase;">
+                © 2025 METAJOURNAL
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let cursorX = mouseX, cursorY = mouseY;
+
+        // Initialize cursor position
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(updateCursor);
+        }
+        updateCursor();
+
+        // Scroll progress
+        const scrollProgress = document.querySelector('.scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            scrollProgress.style.height = scrollPercent + '%';
+        });
+
+
+        // Enhanced animate on scroll
+        const animateElements = document.querySelectorAll('.title-reveal, .slide-up, .fade-in-left, .fade-in-right, .stagger-features, .section-number, .email-form, .animate-on-scroll');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Add a slight delay for more dramatic effect
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, 100);
+                }
+            });
+        }, { 
+            threshold: 0.2,
+            rootMargin: '-50px'
+        });
+
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // Section navigation
+        const navDots = document.querySelectorAll('.nav-dot');
+        const sections = document.querySelectorAll('header, section');
+        
+        // Navigation click handler
+        navDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const targetId = dot.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+            
+            // Add keyboard support
+            dot.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    dot.click();
+                }
+            });
+        });
+
+        // Update active navigation dot on scroll
+        const updateActiveNav = () => {
+            const scrollPos = window.scrollY + window.innerHeight / 2;
+            
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+                    navDots.forEach(dot => dot.classList.remove('active'));
+                    if (navDots[index]) {
+                        navDots[index].classList.add('active');
+                    }
+                }
+            });
+        };
+
+        window.addEventListener('scroll', updateActiveNav);
+        updateActiveNav(); // Initial call
+
+        // Section numbers animation
+        const sectionNumbers = document.querySelectorAll('.section-number');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            sectionNumbers.forEach((number, index) => {
+                const rate = scrolled * 0.01;
+                number.style.transform = `rotate(${rate}deg)`;
+            });
+        });
+
+        // Glitch effect trigger
+        const glitchElement = document.querySelector('.glitch');
+        setInterval(() => {
+            if (Math.random() < 0.1) {
+                glitchElement.style.animation = 'none';
+                setTimeout(() => {
+                    glitchElement.style.animation = 'glitch 0.3s ease';
+                }, 50);
+            }
+        }, 3000);
+
+        // Enhanced form submission with Formspree
+        document.querySelector('.email-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const form = e.target;
+            const btn = document.querySelector('.submit-btn span');
+            const input = document.querySelector('.email-input');
+            const original = btn.textContent;
+            
+            // Show loading state
+            btn.textContent = 'SUBMITTING...';
+            input.disabled = true;
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Success
+                    btn.textContent = 'ADDED ✓';
+                    input.value = '';
+                    input.placeholder = 'THANK YOU!';
+                    
+                    // Reset after delay
+                    setTimeout(() => {
+                        btn.textContent = original;
+                        input.placeholder = 'YOUR EMAIL';
+                        input.disabled = false;
+                    }, 3000);
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                // Error state
+                btn.textContent = 'ERROR - TRY AGAIN';
+                input.disabled = false;
+                
+                setTimeout(() => {
+                    btn.textContent = original;
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

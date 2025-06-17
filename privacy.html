@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIVACY POLICY | METAJOURNAL</title>
+    <meta name="description" content="METAJOURNAL Privacy Policy - All processing happens on your device. Your photos, videos, and transcripts never leave your phone. Complete privacy protection.">
+    <meta name="keywords" content="privacy policy, on-device processing, data protection, private media journal, local storage">
+    <meta name="author" content="METAJOURNAL">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://humanwritten.github.io/metajournal/privacy.html">
+    <meta property="og:title" content="PRIVACY POLICY | METAJOURNAL">
+    <meta property="og:description" content="Complete privacy protection - All processing happens on your device. Your data never leaves your phone.">
+    <meta property="og:image" content="https://humanwritten.github.io/metajournal/favicon-mj-glitch.svg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:url" content="https://humanwritten.github.io/metajournal/privacy.html">
+    <meta property="twitter:title" content="PRIVACY POLICY | METAJOURNAL">
+    <meta property="twitter:description" content="Complete privacy protection - All processing happens on your device.">
+    <meta property="twitter:image" content="https://humanwritten.github.io/metajournal/favicon-mj-glitch.svg">
+    
+    <link rel="icon" type="image/svg+xml" href="favicon-mj-glitch.svg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #000;
+            color: #fff;
+            line-height: 1.4;
+        }
+        
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: all 0.1s ease;
+        }
+        
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: 1;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.4"/></svg>');
+            animation: grain 0.8s infinite;
+        }
+        
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-1px, -1px); }
+            20% { transform: translate(1px, -1px); }
+            30% { transform: translate(-1px, 1px); }
+            40% { transform: translate(1px, 1px); }
+            50% { transform: translate(-1px, -1px); }
+            60% { transform: translate(1px, -1px); }
+            70% { transform: translate(-1px, 1px); }
+            80% { transform: translate(1px, 1px); }
+            90% { transform: translate(-1px, -1px); }
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            padding: 60px 0 40px;
+            text-align: center;
+            border-bottom: 2px solid #333;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: #fff;
+        }
+        
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: transparent;
+            border: 2px solid #333;
+            color: #fff;
+            padding: 10px 20px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            z-index: 1000;
+        }
+        
+        .back-btn:hover {
+            border-color: #fff;
+            background: #fff;
+            color: #000;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        h1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -20px;
+            width: 10px;
+            height: 100%;
+            background: #fff;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 4rem 0 1.5rem 0;
+            padding: 20px 0;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+        
+        h2::before {
+            content: '→';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background: #111;
+            border: 2px solid #333;
+            padding: 30px;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.02) 10px,
+                rgba(255,255,255,0.02) 20px
+            );
+        }
+        
+        .highlight p {
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            opacity: 1;
+            font-size: 1rem;
+        }
+        
+        ul {
+            margin: 2rem 0 2rem 2rem;
+            opacity: 0.8;
+        }
+        
+        li {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            position: relative;
+        }
+        
+        li::before {
+            content: '■';
+            position: absolute;
+            left: -20px;
+            opacity: 0.5;
+        }
+        
+        .section-divider {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #333, transparent);
+            margin: 4rem 0;
+        }
+        
+        .last-updated {
+            background: #111;
+            border: 1px solid #333;
+            padding: 20px;
+            margin-bottom: 3rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+        }
+        
+        .contact-info {
+            background: #111;
+            border: 2px solid #333;
+            padding: 30px;
+            margin: 4rem 0;
+            text-align: center;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-info a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 1px solid #333;
+            transition: border-color 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            border-color: #fff;
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid #333;
+            position: relative;
+            z-index: 100;
+            background: #000;
+            margin-top: 4rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+            position: relative;
+            z-index: 1000;
+            cursor: pointer;
+            padding: 10px;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: #fff;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .back-btn {
+                position: static;
+                margin-bottom: 2rem;
+            }
+            
+            header {
+                text-align: left;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="noise"></div>
+    
+    <div class="container">
+        <header>
+            <a href="index.html" class="back-btn" aria-label="Back to home page">← BACK</a>
+            <div class="logo">METAJOURNAL</div>
+            <div class="tagline">PRIVATE MEDIA JOURNAL</div>
+        </header>
+
+        <div class="content">
+            <h1 class="animate-on-scroll">PRIVACY</h1>
+            
+            <div class="last-updated animate-on-scroll">
+                LAST UPDATED: June 15, 2025
+            </div>
+
+            <div class="highlight animate-on-scroll">
+                <p>METAJOURNAL IS DESIGNED WITH PRIVACY AS A CORE PRINCIPLE. ALL MEDIA PROCESSING, TRANSCRIPTION, AND ANALYSIS HAPPENS ENTIRELY ON YOUR DEVICE. YOUR PHOTOS, VIDEOS, AND TRANSCRIPTS NEVER LEAVE YOUR PHONE.</p>
+            </div>
+
+            <section class="animate-on-scroll">
+                <h2>DATA PROCESSED LOCALLY</h2>
+                <ul>
+                    <li>PHOTOS AND VIDEOS FROM YOUR SELECTED ALBUM</li>
+                    <li>AUDIO EXTRACTED FROM VIDEOS FOR TRANSCRIPTION</li>
+                    <li>TRANSCRIPTS GENERATED FROM VIDEO AUDIO</li>
+                    <li>APP SETTINGS AND PREFERENCES</li>
+                    <li>PROCESSING JOB STATUS AND METADATA</li>
+                </ul>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <section class="animate-on-scroll">
+                <h2>DATA WE DO NOT COLLECT</h2>
+                <ul>
+                    <li>YOUR PHOTOS OR VIDEOS ARE NEVER UPLOADED</li>
+                    <li>TRANSCRIPTS REMAIN ON YOUR DEVICE</li>
+                    <li>NO ACCESS BEYOND YOUR SPECIFIED ALBUM(S)</li>
+                    <li>NO PERSONAL INFO TRANSMITTED TO EXTERNAL SERVICES</li>
+                </ul>
+            </section>
+
+            <section class="animate-on-scroll">
+                <h2>HOW WE USE YOUR INFORMATION</h2>
+                <p>ALL DATA PROCESSING OCCURS LOCALLY FOR:</p>
+                <ul>
+                    <li>MONITORING YOUR SELECTED PHOTOS ALBUM</li>
+                    <li>EXTRACTING AUDIO FROM VIDEOS</li>
+                    <li>GENERATING SEARCHABLE TRANSCRIPTS</li>
+                    <li>CREATING TIMELINE VIEWS</li>
+                    <li>ENABLING SEARCH FUNCTIONALITY</li>
+                </ul>
+            </section>
+
+            <section class="animate-on-scroll">
+                <h2>DATA STORAGE AND SECURITY</h2>
+                <p><strong>LOCAL STORAGE:</strong></p>
+                <ul>
+                    <li>ALL DATA STORED USING APPLE'S SWIFTDATA</li>
+                    <li>AUDIO FILES IN APP'S PRIVATE DIRECTORY</li>
+                    <li>ENCRYPTED TRANSCRIPT STORAGE</li>
+                    <li>PROTECTED BY IOS SECURITY FEATURES</li>
+                </ul>
+                
+                <p><strong>ICLOUD SYNC:</strong></p>
+                <ul>
+                    <li>WILL BE USING APPLES NATIVE SERVICES WITH PLATFORM PRIVACY CONCEPTS</li>
+                    <li>IF YOU CHOOSE TO DELETE FROM CAMERA ROLL AND MOVE TO ICLOUD DRIVE FILES USING OUR APP WE DON'T TAKE ANY LIABILITY FOR LOSS OF DATA</li>
+                </ul>
+            </section>
+
+            <section class="animate-on-scroll">
+                <h2>PERMISSIONS REQUIRED</h2>
+                <p><strong>PHOTO LIBRARY ACCESS:</strong></p>
+                <ul>
+                    <li>MONITOR SELECTED ALBUM FOR NEW MEDIA</li>
+                    <li>ACCESS ONLY CHOSEN ALBUM CONTENT</li>
+                    <li>GENERATE THUMBNAILS AND PROCESS VIDEOS</li>
+                </ul>
+                
+                <p><strong>SPEECH RECOGNITION:</strong></p>
+                <ul>
+                    <li>ON-DEVICE TRANSCRIPTION OF VIDEO AUDIO</li>
+                    <li>USES APPLE'S LOCAL FRAMEWORKS</li>
+                    <li>NO EXTERNAL SPEECH SERVICES</li>
+                </ul>
+
+                <p><strong>CAMERA AND AUDIO ACCESS:</strong></p>
+                <ul>
+                    <li>ACCESS TO CAMERA AND AUDIO FOR JOURNAL RECORDING</li>
+                </ul>
+            </ul>
+            </section>
+
+            <section class="animate-on-scroll">
+                <h2>THIRD-PARTY SERVICES</h2>
+                <p>METAJOURNAL OPERATES WITHOUT THIRD-PARTY SERVICES:</p>
+                <ul>
+                    <li>NO ANALYTICS OR TRACKING SERVICES</li>
+                    <li>NO EXTERNAL APIS</li>
+                    <li>NO ADVERTISING NETWORKS</li>
+                    <li>ONLY APPLE'S NATIVE FRAMEWORKS</li>
+                </ul>
+            </section>
+
+            <section class="animate-on-scroll">
+                <h2>DATA RETENTION</h2>
+                <ul>
+                    <li>DATA REMAINS ON YOUR DEVICE UNTIL DELETED</li>
+                    <li>DELETING APP REMOVES ALL DATA</li>
+                    <li>INDIVIDUAL ENTRIES CAN BE DELETED</li>
+                    <li>AUDIO FILES AUTOMATICALLY MANAGED</li>
+                </ul>
+            </section>
+
+            <section class="animate-on-scroll">
+                <h2>CHILDREN'S PRIVACY</h2>
+                <p>METAJOURNAL DOES NOT COLLECT PERSONAL INFORMATION FROM CHILDREN UNDER 13. ALL PROCESSING IS LOCAL AND NO PERSONAL INFORMATION IS TRANSMITTED.</p>
+            </section>
+
+            <section class="animate-on-scroll">
+                <h2>POLICY UPDATES</h2>
+                <p>WE MAY UPDATE THIS POLICY AT ANY TIME.</p>
+            </section>
+
+            <div class="contact-info animate-on-scroll">
+                <h3>QUESTIONS?</h3>
+                <p>CONTACT US AT <a href="mailto:privacy@metajournal.sh">PRIVACY@METAJOURNAL.SH</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="animate-on-scroll">
+        <div class="container">
+            <div class="footer-links">
+                <a href="privacy.html">PRIVACY</a>
+                <a href="terms.html">TERMS</a>
+                <a href="support.html">SUPPORT</a>
+            </div>
+            <p style="font-size: 0.8rem; opacity: 0.3; text-transform: uppercase;">
+                © 2025 METAJOURNAL
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let cursorX = mouseX, cursorY = mouseY;
+
+        // Initialize cursor position
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(updateCursor);
+        }
+        updateCursor();
+
+        // Animate on scroll
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
